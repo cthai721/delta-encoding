@@ -1,5 +1,4 @@
-from flask import Flask
-from flask import request
+from flask import Flask, request, abort
 import delta_encoding
 
 app = Flask(__name__)
@@ -12,16 +11,18 @@ def hello():
 def compress():
   try:
     data = request.get_data()
-    
-    return delta_encoding.encoding(data)
+    return delta_encoding.encoding(data), 200, {'Content-Type': 'text/plain'}
   except:
-    return 400
+    abort(400)
   
 
 @app.route("/decompress", methods=['POST'])
 def decompress():
-  data = request.get_data()
-  return delta_encoding.decoding(data)
+  try:
+    data = request.get_data()
+    return delta_encoding.decoding(data), 200, {'Content-Type': 'text/plain'}
+  except:
+    abort(400)
 
 # curl -XPOST --data-binary @encoding_temp.txt 127.0.0.1:5000/decompress
 # curl -XPOST --data-binary @decoding_temp.txt 127.0.0.1:5000/compress
