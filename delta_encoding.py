@@ -40,18 +40,18 @@ def decoding(str):
   return '\n'.join(new_words)
 
 if __name__ == '__main__':
+
+  # encoding process
   with open('words_alpha.txt', 'r') as f:
     data = f.read()
   f.close()
+  encoded_data = encoding(data)
 
-  result = encoding(data)
-
-  with open('encoding_temp.txt', 'w') as f:
-    f.write(result)
+  # decoding process
+  with open('encoded_temp.txt', 'w') as f:
+    f.write(encoded_data)
   f.close()
-
-  result = decoding(result)
+  decoded_data = decoding(encoded_data)
    
-  with open('decoding_temp.txt', 'w') as f:
-    f.write(result)
-  f.close()
+  # comparing the original with the decoded temp
+  print decoded_data == data

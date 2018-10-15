@@ -24,5 +24,5 @@ def decompress():
   except:
     abort(400)
 
-# curl -XPOST --data-binary @encoding_temp.txt 127.0.0.1:5000/decompress
-# curl -XPOST --data-binary @decoding_temp.txt 127.0.0.1:5000/compress
+# curl -XPOST --data-binary @encoded_temp.txt 127.0.0.1:5000/decompress
+# curl -XPOST --data-binary @temp.txt 127.0.0.1:5000/compress
